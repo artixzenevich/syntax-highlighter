@@ -1,29 +1,32 @@
-import { useEffect } from '@wordpress/element';
-import { useBlockProps, RichText } from '@wordpress/block-editor';
-import hljs from 'highlight.js';
-import 'highlight.js/styles/default.css';
+import { __ } from '@wordpress/i18n';
+import { RichText, useBlockProps } from '@wordpress/block-editor';
+import { createBlock, getDefaultBlockName } from '@wordpress/blocks';
 
-export default function Edit({ attributes, setAttributes }) {
+export default function CodeEdit( {
+	attributes,
+	setAttributes,
+	onRemove,
+	insertBlocksAfter,
+	mergeBlocks,
+} ) {
 	const blockProps = useBlockProps();
-
-	// Применяем подсветку при каждом изменении контента
-	useEffect(() => {
-		document.querySelectorAll('.highlighted-code').forEach((el) => {
-			hljs.highlightElement(el);
-		});
-	}, [attributes.content]);
-
 	return (
-		<div {...blockProps}>
-			<pre className="highlighted-code">
-				<RichText
-					tagName="code"
-					value={attributes.content}
-					onChange={(content) => setAttributes({ content })}
-					placeholder="Введите код..."
-					allowedFormats={[]} // Отключаем форматы
-				/>
-			</pre>
-		</div>
+		<pre { ...blockProps }>
+			<RichText
+				tagName="code"
+				identifier="content"
+				value={ attributes.content }
+				onChange={ ( content ) => setAttributes( { content } ) }
+				onRemove={ onRemove }
+				onMerge={ mergeBlocks }
+				placeholder={ __( 'Write code…' ) }
+				aria-label={ __( 'Code' ) }
+				preserveWhiteSpace
+				__unstablePastePlainText
+				__unstableOnSplitAtDoubleLineEnd={ () =>
+					insertBlocksAfter( createBlock( getDefaultBlockName() ) )
+				}
+			/>
+		</pre>
 	);
 }
