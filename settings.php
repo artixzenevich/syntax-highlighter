@@ -7,7 +7,7 @@ function hjs_enqueue_admin_assets($hook_suffix) {
     }
 
     // Подключаем скрипт Highlight.js
-    wp_enqueue_script('highlightjs', plugin_dir_url(__FILE__) . 'assets/highlight.min.js', [], '11.9.0', true);
+    wp_enqueue_script('highlightjs', plugin_dir_url(__FILE__) . 'assets/highlight.min.js', [], '11.9.0', false);
 
     // Подключаем начальный стиль, выбранный пользователем
     $selected_theme = get_option('hjs_selected_theme', 'default');

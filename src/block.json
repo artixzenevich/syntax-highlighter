@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "create-block/syntax-highlighter",
+	"version": "0.1.0",
+	"title": "Syntax Highlighter",
+	"category": "widgets",
+	"icon": "smiley",
+	"description": "A block for displaying highlighted code with syntax highlighting.",
+	"example": {
+		"attributes": {
+			"content": "<?php echo 'Hello World'; ?>"
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": true
+	},
+	"attributes": {
+		"content": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css",
+	"viewScript": "file:./view.js"
+}
